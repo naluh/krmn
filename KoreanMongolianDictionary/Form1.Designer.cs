@@ -55,8 +55,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lvLastSearch = new System.Windows.Forms.ListView();
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvExplainMn = new System.Windows.Forms.ListView();
             this.txtExplainKr = new System.Windows.Forms.TextBox();
+            this.txtExplainMn = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,8 +105,8 @@
             this.tableLayoutPanel1.Controls.Add(this.txtExampleMn, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtExampleKr, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lvExplainMn, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.txtExplainKr, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtExplainMn, 1, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(-3, 151);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
@@ -316,17 +316,6 @@
             this.columnHeader7.Text = "최근 검색한 단어";
             this.columnHeader7.Width = 160;
             // 
-            // lvExplainMn
-            // 
-            this.lvExplainMn.FullRowSelect = true;
-            this.lvExplainMn.GridLines = true;
-            this.lvExplainMn.Location = new System.Drawing.Point(554, 305);
-            this.lvExplainMn.Name = "lvExplainMn";
-            this.lvExplainMn.Size = new System.Drawing.Size(545, 71);
-            this.lvExplainMn.TabIndex = 20;
-            this.lvExplainMn.UseCompatibleStateImageBehavior = false;
-            this.lvExplainMn.View = System.Windows.Forms.View.Details;
-            // 
             // txtExplainKr
             // 
             this.txtExplainKr.Location = new System.Drawing.Point(3, 305);
@@ -334,6 +323,14 @@
             this.txtExplainKr.Name = "txtExplainKr";
             this.txtExplainKr.Size = new System.Drawing.Size(545, 71);
             this.txtExplainKr.TabIndex = 21;
+            // 
+            // txtExplainMn
+            // 
+            this.txtExplainMn.Location = new System.Drawing.Point(554, 305);
+            this.txtExplainMn.Multiline = true;
+            this.txtExplainMn.Name = "txtExplainMn";
+            this.txtExplainMn.Size = new System.Drawing.Size(545, 71);
+            this.txtExplainMn.TabIndex = 22;
             // 
             // Form1
             // 
@@ -389,8 +386,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ListView lvExplainMn;
         private System.Windows.Forms.TextBox txtExplainKr;
+        private System.Windows.Forms.TextBox txtExplainMn;
 
     }
 }
