@@ -1,0 +1,198 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using System.Data;
+
+namespace KoreanMongolianDictionary
+{
+    public partial class Form1 : Form
+    {
+        login lo;
+        public Form1(login lo)
+        {
+            InitializeComponent();
+            this.lo = lo;
+
+        }
+        DataSet koreanResult = new DataSet();
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+
+            koreanResult.Clear();
+            lvKorean.Items.Clear();
+
+            string searchword = this.txtSearch.Text;
+            UpdateRecentSearchWordList(searchword);
+
+
+
+           // string connstr = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
+           // using (MySqlConnection conn = new MySqlConnection(connstr))
+            MySqlConnection conn = lo.getConn();
+            if (conn == null)
+            {
+                return;
+            }
+            {
+                string sql = "SELECT * FROM uwin where name = '" + searchword + "'";
+                MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
+                adpt.Fill(koreanResult, "uwin");
+            }
+            foreach (DataRow r in koreanResult.Tables[0].Rows)
+            {
+
+                ListViewItem lvi = new ListViewItem(r["keyID"].ToString());
+                lvi.SubItems.Add(r["Name"].ToString());
+                lvi.SubItems.Add(r["POS"].ToString());
+                lvi.SubItems.Add(r["SenseTag"].ToString());
+                lvKorean.Items.Add(lvi);
+            }
+        }
+
+        private void UpdateRecentSearchWordList(string searchword)
+        {
+            
+            searchword = searchword.Trim();
+            // TODO: 별도(따로) 메소드 만들어서 최근 5개만 나오게 하기
+            // 최근 검색 결과 확인 
+            // 제일 최근에 검색한(제일 아래) 단어 지금 검색한 단어랑 똑같은지 확인 
+            // 똑같으면 그냥 놔두기
+
+            // 4개 이하일 때 그냥 추가
+            // 다르면 제일 오래된 단어를 지우고 지금 검색한 단어를 추가
+            //lvLastSearch.Items.Add(searchword);
+
+            //var items = lvLastSearch.Items;
+            //  var last = items[items.Count - 1];
+            //  last.EnsureVisible();  
+            //
+            //  string lastword = Convert.ToString( this.lvLastSearch.Items.Count - 1);
+            // lvLastSearch.Items[lvLastSearch.Items.Count - 1].EnsureVisible();
+            if (lvLastSearch.Items.Count > 0)
+            {
+                for (int i = 0; i < lvLastSearch.Items.Count; i++)
+                {
+                    string last = lvLastSearch.Items[i].Text;
+                    if (last == searchword)
+                    {
+                        return;
+                    }
+
+                }
+
+            }
+            if (lvLastSearch.Items.Count < 5)
+            {
+                lvLastSearch.Items.Add(searchword);
+            }
+            else
+            {
+                lvLastSearch.Items[0].Remove();
+                lvLastSearch.Items.Add(searchword);
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            lo.Close();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSearch_Click(sender, e);
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lvKorean_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // todo : 선택된 한국어 단어에 대한 몽골어 단어 목록 검색 출력
+            // 한국어 단어 keyId 받아 오기 : 했음
+            // kr_mn 데이블에서 한국어 keyId 랑 똑같은 record의 몽골어 keyId 받아오기 
+            // 몽골어 데이블에서 keyId의 단어를 받아오고 listview에 출력 
+            // 한국어 단어의 뜻이랑 예문 나오기
+            lvMongolian.Items.Clear();
+            if (lvKorean.SelectedItems.Count == 0)
+            {
+                return;
+            }
+            int koreankey = Convert.ToInt32(lvKorean.SelectedItems[0].Text);
+            
+
+
+            // MessageBox.Show(lvKorean.SelectedItems[0].Text);
+            //lvKorean.Items[]
+
+            MySqlConnection conn = lo.getConn();
+            if (conn == null)
+            {
+                return;
+            }
+            DataSet MongolianResult = new DataSet();
+            {
+                string sql = "SELECT * FROM kr_mn where kr_Id = '" + koreankey + "'";  
+                MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
+                adpt.Fill(MongolianResult, "kr_mn");
+            }
+            string mn_id = "";
+            foreach (DataRow r in MongolianResult.Tables[0].Rows)
+            {
+
+                ListViewItem lvi = new ListViewItem(r["mn_Id"].ToString());
+                mn_id = r["mn_Id"].ToString();
+            }
+
+            if (mn_id == "")
+            {
+                MessageBox.Show("mn_id가 비었습니다.");
+                return;
+            }
+
+            MongolianResult.Clear();
+            {
+                string sql = "SELECT * FROM mongolian where mn_ID = '" + mn_id + "'";
+                MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
+                adpt.Fill(MongolianResult, "kr_mn");
+            }
+            foreach (DataRow r in MongolianResult.Tables[0].Rows)
+            {
+
+                ListViewItem lvi = new ListViewItem(r["mn_Id"].ToString());
+
+                lvi.SubItems.Add(r["mn_Name"].ToString());
+                lvi.SubItems.Add(r["mn_Pos"].ToString());
+                lvi.SubItems.Add(r["mn_SenseTag"].ToString());
+              
+
+                lvMongolian.Items.Add(lvi);
+                
+
+            }
+            DataSet krExplain = new DataSet();
+            {
+                string sql = "SELECT * FROM uwin where KeyID = " + koreankey;
+                MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
+                adpt.Fill(krExplain, "uwin");
+            }
+            foreach (DataRow r in krExplain.Tables[0].Rows)
+            {
+
+                txtExplainKr.Text = r["Explain1"].ToString();
+            }
+        }
+    }
+}
