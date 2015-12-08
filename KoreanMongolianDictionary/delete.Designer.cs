@@ -33,7 +33,7 @@
             this.pwTextBox = new System.Windows.Forms.TextBox();
             this.noBTN = new System.Windows.Forms.Button();
             this.yesBTN = new System.Windows.Forms.Button();
-            this.nameLabel = new System.Windows.Forms.Label();
+            this.lblDeleteWord = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -82,22 +82,21 @@
             this.yesBTN.Text = "확인";
             this.yesBTN.UseVisualStyleBackColor = true;
             // 
-            // nameLabel
+            // lblDeleteWord
             // 
-            this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Gulim", 14F);
-            this.nameLabel.Location = new System.Drawing.Point(19, 62);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(53, 19);
-            this.nameLabel.TabIndex = 11;
-            this.nameLabel.Text = "явах";
+            this.lblDeleteWord.AutoSize = true;
+            this.lblDeleteWord.Font = new System.Drawing.Font("Gulim", 14F);
+            this.lblDeleteWord.Location = new System.Drawing.Point(19, 62);
+            this.lblDeleteWord.Name = "lblDeleteWord";
+            this.lblDeleteWord.Size = new System.Drawing.Size(0, 19);
+            this.lblDeleteWord.TabIndex = 11;
             // 
             // delete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(282, 232);
-            this.Controls.Add(this.nameLabel);
+            this.Controls.Add(this.lblDeleteWord);
             this.Controls.Add(this.yesBTN);
             this.Controls.Add(this.noBTN);
             this.Controls.Add(this.pwTextBox);
@@ -117,6 +116,6 @@
         private System.Windows.Forms.TextBox pwTextBox;
         private System.Windows.Forms.Button noBTN;
         private System.Windows.Forms.Button yesBTN;
-        private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.Label lblDeleteWord;
     }
 }

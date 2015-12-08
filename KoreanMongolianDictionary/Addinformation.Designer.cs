@@ -34,16 +34,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.txtMnId = new System.Windows.Forms.TextBox();
             this.txtMnName = new System.Windows.Forms.TextBox();
             this.txtMnSenseTag = new System.Windows.Forms.TextBox();
             this.txtMnPos = new System.Windows.Forms.TextBox();
             this.txtMnExplain = new System.Windows.Forms.TextBox();
             this.txtMnExample = new System.Windows.Forms.TextBox();
-            this.txtKrId = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -101,15 +98,6 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "mn_Example";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(74, 294);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 12);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "kr_ID";
-            // 
             // txtMnId
             // 
             this.txtMnId.Location = new System.Drawing.Point(146, 49);
@@ -152,56 +140,38 @@
             this.txtMnExample.Size = new System.Drawing.Size(154, 21);
             this.txtMnExample.TabIndex = 12;
             // 
-            // txtKrId
-            // 
-            this.txtKrId.Location = new System.Drawing.Point(146, 285);
-            this.txtKrId.Name = "txtKrId";
-            this.txtKrId.Size = new System.Drawing.Size(154, 21);
-            this.txtKrId.TabIndex = 13;
-            // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(26, 338);
+            this.btnAdd.Location = new System.Drawing.Point(76, 302);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(75, 38);
             this.btnAdd.TabIndex = 14;
             this.btnAdd.Text = "추가";
             this.btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Location = new System.Drawing.Point(129, 338);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 23);
-            this.btnEdit.TabIndex = 15;
-            this.btnEdit.Text = "수정";
-            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(225, 338);
+            this.btnDelete.Location = new System.Drawing.Point(187, 302);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(75, 38);
             this.btnDelete.TabIndex = 16;
-            this.btnDelete.Text = "삭제";
+            this.btnDelete.Text = "최소";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // Addinformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(345, 398);
+            this.ClientSize = new System.Drawing.Size(378, 376);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.txtKrId);
             this.Controls.Add(this.txtMnExample);
             this.Controls.Add(this.txtMnExplain);
             this.Controls.Add(this.txtMnPos);
             this.Controls.Add(this.txtMnSenseTag);
             this.Controls.Add(this.txtMnName);
             this.Controls.Add(this.txtMnId);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -223,16 +193,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtMnId;
         private System.Windows.Forms.TextBox txtMnName;
         private System.Windows.Forms.TextBox txtMnSenseTag;
         private System.Windows.Forms.TextBox txtMnPos;
         private System.Windows.Forms.TextBox txtMnExplain;
         private System.Windows.Forms.TextBox txtMnExample;
-        private System.Windows.Forms.TextBox txtKrId;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
     }
 }

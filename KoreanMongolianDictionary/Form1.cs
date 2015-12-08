@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.Data;
+
 
 namespace KoreanMongolianDictionary
 {
@@ -21,6 +21,7 @@ namespace KoreanMongolianDictionary
             this.lo = lo;
 
         }
+        
         DataSet koreanResult = new DataSet();
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -115,7 +116,11 @@ namespace KoreanMongolianDictionary
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            Addinformation adddata = new Addinformation(this);
+            adddata.ShowDialog();
 
+           
         }
 
         private void lvKorean_SelectedIndexChanged(object sender, EventArgs e)
