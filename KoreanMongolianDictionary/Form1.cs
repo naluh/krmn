@@ -179,6 +179,8 @@ namespace KoreanMongolianDictionary
               
 
                 lvMongolian.Items.Add(lvi);
+                txtExplainMn.Text = r["mn_Explain"].ToString();
+                txtExampleMn.Text = r["mn_Example"].ToString();
                 
 
             }
@@ -190,8 +192,43 @@ namespace KoreanMongolianDictionary
             }
             foreach (DataRow r in krExplain.Tables[0].Rows)
             {
-
-                txtExplainKr.Text = r["Explain1"].ToString();
+              txtExplainKr.Text = r["Explain1"].ToString();
+              txtExampleKr.Text = r["Bigo"].ToString();
+            }
+          
+        }
+       
+       
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+          //  DataSet deleteResult = new DataSet();
+         //   int mongoliankey = Convert.ToInt32(lvMongolian.SelectedItems[0].Text);
+            
+            try
+            {
+                MySqlConnection conn = lo.getConn();
+                if (conn == null)
+                {
+                    return;
+                }
+                string sql = "delete from krmndic.mongolian where mn_ID = '" + lvMongolian.SelectedItems[0].Text + "';";
+                MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
+               // adpt.Fill(deleteResult, "mongolian");
+                MySqlCommand cmdDataBase = new MySqlCommand(sql, conn);
+                MySqlDataReader myReader;
+                conn.Open();
+                myReader = cmdDataBase.ExecuteReader();
+                MessageBox.Show("Data Deleted");
+                lvMongolian.Clear();
+                txtExplainMn.Text = "";
+                txtExampleMn.Text = "";
+                while (myReader.Read())
+                { }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
