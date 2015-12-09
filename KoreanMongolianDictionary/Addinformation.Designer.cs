@@ -102,6 +102,7 @@
             // 
             this.txtMnId.Location = new System.Drawing.Point(146, 49);
             this.txtMnId.Name = "txtMnId";
+            this.txtMnId.ReadOnly = true;
             this.txtMnId.Size = new System.Drawing.Size(154, 21);
             this.txtMnId.TabIndex = 7;
             // 
@@ -158,6 +159,7 @@
             this.btnDelete.TabIndex = 16;
             this.btnDelete.Text = "최소";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // Addinformation
             // 

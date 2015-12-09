@@ -21,7 +21,7 @@ namespace KoreanMongolianDictionary
             this.lo = lo;
 
         }
-        
+
         DataSet koreanResult = new DataSet();
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -29,14 +29,19 @@ namespace KoreanMongolianDictionary
 
             koreanResult.Clear();
             lvKorean.Items.Clear();
+            lvMongolian.Items.Clear();
+            txtExplainMn.Text = "";
+            txtExplainKr.Text = "";
+            txtExampleKr.Text = "";
+            txtExampleMn.Text = "";
 
             string searchword = this.txtSearch.Text;
             UpdateRecentSearchWordList(searchword);
+            searchword = searchword.Trim();
 
 
-
-           // string connstr = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
-           // using (MySqlConnection conn = new MySqlConnection(connstr))
+            // string connstr = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
+            // using (MySqlConnection conn = new MySqlConnection(connstr))
             MySqlConnection conn = lo.getConn();
             if (conn == null)
             {
@@ -60,16 +65,9 @@ namespace KoreanMongolianDictionary
 
         private void UpdateRecentSearchWordList(string searchword)
         {
-            
-            searchword = searchword.Trim();
-            // TODO: 별도(따로) 메소드 만들어서 최근 5개만 나오게 하기
-            // 최근 검색 결과 확인 
-            // 제일 최근에 검색한(제일 아래) 단어 지금 검색한 단어랑 똑같은지 확인 
-            // 똑같으면 그냥 놔두기
 
-            // 4개 이하일 때 그냥 추가
-            // 다르면 제일 오래된 단어를 지우고 지금 검색한 단어를 추가
-            //lvLastSearch.Items.Add(searchword);
+            searchword = searchword.Trim();
+
 
             //var items = lvLastSearch.Items;
             //  var last = items[items.Count - 1];
@@ -114,13 +112,19 @@ namespace KoreanMongolianDictionary
             }
         }
 
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            if (lvKorean.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("선택되어야 추가할 수 있습니다. ");
+                return;
+            }
+            //this.Hide();
             Addinformation adddata = new Addinformation(this);
             adddata.ShowDialog();
 
-           
+
         }
 
         private void lvKorean_SelectedIndexChanged(object sender, EventArgs e)
@@ -131,12 +135,15 @@ namespace KoreanMongolianDictionary
             // 몽골어 데이블에서 keyId의 단어를 받아오고 listview에 출력 
             // 한국어 단어의 뜻이랑 예문 나오기
             lvMongolian.Items.Clear();
+            txtExplainMn.Text = "";
+            txtExampleMn.Text = "";
             if (lvKorean.SelectedItems.Count == 0)
             {
+
                 return;
             }
             int koreankey = Convert.ToInt32(lvKorean.SelectedItems[0].Text);
-            
+
 
 
             // MessageBox.Show(lvKorean.SelectedItems[0].Text);
@@ -149,7 +156,7 @@ namespace KoreanMongolianDictionary
             }
             DataSet MongolianResult = new DataSet();
             {
-                string sql = "SELECT * FROM kr_mn where kr_Id = '" + koreankey + "'";  
+                string sql = "SELECT * FROM kr_mn where kr_Id = '" + koreankey + "'";
                 MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
                 adpt.Fill(MongolianResult, "kr_mn");
             }
@@ -181,12 +188,12 @@ namespace KoreanMongolianDictionary
                 lvi.SubItems.Add(r["mn_Name"].ToString());
                 lvi.SubItems.Add(r["mn_Pos"].ToString());
                 lvi.SubItems.Add(r["mn_SenseTag"].ToString());
-              
+
 
                 lvMongolian.Items.Add(lvi);
                 txtExplainMn.Text = r["mn_Explain"].ToString();
                 txtExampleMn.Text = r["mn_Example"].ToString();
-                
+
 
             }
             DataSet krExplain = new DataSet();
@@ -197,18 +204,31 @@ namespace KoreanMongolianDictionary
             }
             foreach (DataRow r in krExplain.Tables[0].Rows)
             {
-              txtExplainKr.Text = r["Explain1"].ToString();
-              txtExampleKr.Text = r["Bigo"].ToString();
+                txtExplainKr.Text = r["Explain1"].ToString();
+                txtExampleKr.Text = r["Bigo"].ToString();
             }
-          
+
         }
-       
-       
+
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
-          //  DataSet deleteResult = new DataSet();
-         //   int mongoliankey = Convert.ToInt32(lvMongolian.SelectedItems[0].Text);
-            
+
+            if (lvMongolian.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("선택되어야 삭제할 수 있습니다. ");
+                return;
+            }
+            //  DataSet deleteResult = new DataSet();
+            //   int mongoliankey = Convert.ToInt32(lvMongolian.SelectedItems[0].Text);
+            delete deleteword = new delete(this);
+            deleteword.ShowDialog();
+
+
+
+        }
+        public void DeleteWord()
+        {
             try
             {
                 MySqlConnection conn = lo.getConn();
@@ -218,7 +238,7 @@ namespace KoreanMongolianDictionary
                 }
                 string sql = "delete from krmndic.mongolian where mn_ID = '" + lvMongolian.SelectedItems[0].Text + "';";
                 MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
-               // adpt.Fill(deleteResult, "mongolian");
+                // adpt.Fill(deleteResult, "mongolian");
                 MySqlCommand cmdDataBase = new MySqlCommand(sql, conn);
                 MySqlDataReader myReader;
                 conn.Open();

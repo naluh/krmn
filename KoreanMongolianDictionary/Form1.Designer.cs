@@ -48,6 +48,8 @@
             this.txtExampleMn = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtExampleKr = new System.Windows.Forms.TextBox();
+            this.txtExplainKr = new System.Windows.Forms.TextBox();
+            this.txtExplainMn = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -55,8 +57,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lvLastSearch = new System.Windows.Forms.ListView();
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtExplainKr = new System.Windows.Forms.TextBox();
-            this.txtExplainMn = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -250,6 +250,22 @@
             this.txtExampleKr.Size = new System.Drawing.Size(545, 70);
             this.txtExampleKr.TabIndex = 4;
             // 
+            // txtExplainKr
+            // 
+            this.txtExplainKr.Location = new System.Drawing.Point(3, 305);
+            this.txtExplainKr.Multiline = true;
+            this.txtExplainKr.Name = "txtExplainKr";
+            this.txtExplainKr.Size = new System.Drawing.Size(545, 71);
+            this.txtExplainKr.TabIndex = 21;
+            // 
+            // txtExplainMn
+            // 
+            this.txtExplainMn.Location = new System.Drawing.Point(554, 305);
+            this.txtExplainMn.Multiline = true;
+            this.txtExplainMn.Name = "txtExplainMn";
+            this.txtExplainMn.Size = new System.Drawing.Size(545, 71);
+            this.txtExplainMn.TabIndex = 22;
+            // 
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Gulim", 12F);
@@ -316,22 +332,6 @@
             // 
             this.columnHeader7.Text = "최근 검색한 단어";
             this.columnHeader7.Width = 160;
-            // 
-            // txtExplainKr
-            // 
-            this.txtExplainKr.Location = new System.Drawing.Point(3, 305);
-            this.txtExplainKr.Multiline = true;
-            this.txtExplainKr.Name = "txtExplainKr";
-            this.txtExplainKr.Size = new System.Drawing.Size(545, 71);
-            this.txtExplainKr.TabIndex = 21;
-            // 
-            // txtExplainMn
-            // 
-            this.txtExplainMn.Location = new System.Drawing.Point(554, 305);
-            this.txtExplainMn.Multiline = true;
-            this.txtExplainMn.Name = "txtExplainMn";
-            this.txtExplainMn.Size = new System.Drawing.Size(545, 71);
-            this.txtExplainMn.TabIndex = 22;
             // 
             // Form1
             // 

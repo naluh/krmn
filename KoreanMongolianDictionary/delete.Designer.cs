@@ -72,6 +72,7 @@
             this.noBTN.TabIndex = 9;
             this.noBTN.Text = "취소";
             this.noBTN.UseVisualStyleBackColor = true;
+            this.noBTN.Click += new System.EventHandler(this.noBTN_Click);
             // 
             // yesBTN
             // 
@@ -81,6 +82,7 @@
             this.yesBTN.TabIndex = 10;
             this.yesBTN.Text = "확인";
             this.yesBTN.UseVisualStyleBackColor = true;
+            this.yesBTN.Click += new System.EventHandler(this.yesBTN_Click);
             // 
             // lblDeleteWord
             // 
