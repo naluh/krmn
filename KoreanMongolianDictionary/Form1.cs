@@ -121,39 +121,54 @@ namespace KoreanMongolianDictionary
                 return;
             }
             //this.Hide();
+            
             Addinformation adddata = new Addinformation(this);
             adddata.ShowDialog();
-
-
+        }
+        public int PassKorean
+        {
+            get { return Convert.ToInt32(lvKorean.SelectedItems[0].Text); }
         }
 
         private void lvKorean_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // todo : 선택된 한국어 단어에 대한 몽골어 단어 목록 검색 출력
-            // 한국어 단어 keyId 받아 오기 : 했음
-            // kr_mn 데이블에서 한국어 keyId 랑 똑같은 record의 몽골어 keyId 받아오기 
-            // 몽골어 데이블에서 keyId의 단어를 받아오고 listview에 출력 
-            // 한국어 단어의 뜻이랑 예문 나오기
+            
             lvMongolian.Items.Clear();
+            txtExplainKr.Text = "";
+            txtExampleKr.Text = "";
             txtExplainMn.Text = "";
             txtExampleMn.Text = "";
             if (lvKorean.SelectedItems.Count == 0)
             {
-
                 return;
             }
             int koreankey = Convert.ToInt32(lvKorean.SelectedItems[0].Text);
 
-
-
             // MessageBox.Show(lvKorean.SelectedItems[0].Text);
             //lvKorean.Items[]
+            MySqlConnection conn1 = lo.getConn();
+            if (conn1 == null)
+            {
+                return;
+            }
+            DataSet koreanEx = new DataSet();
+            {
+                string sql = "SELECT * FROM uwin where KeyID = '" + koreankey + "'";
+                MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn1);
+                adpt.Fill(koreanEx, "uwin");
+                foreach (DataRow r in koreanEx.Tables[0].Rows)
+                {
 
+                   txtExplainKr.Text =  r["Explain1"].ToString();
+                   txtExampleKr.Text = r["Bigo"].ToString();
+                }
+            }
             MySqlConnection conn = lo.getConn();
             if (conn == null)
             {
                 return;
             }
+
             DataSet MongolianResult = new DataSet();
             {
                 string sql = "SELECT * FROM kr_mn where kr_Id = '" + koreankey + "'";
@@ -256,5 +271,24 @@ namespace KoreanMongolianDictionary
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (lvMongolian.Items.Count == 0)
+            {
+                MessageBox.Show("선택되어야 수정할 수 있습니다.");
+                return;
+            }
+            
+            Edit editword = new Edit(this);
+            editword.ShowDialog();
+        }
+
+        public int Pass
+        {
+            get
+            { return  Convert.ToInt32(lvMongolian.SelectedItems[0].Text); }
+        }
+        
     }
 }

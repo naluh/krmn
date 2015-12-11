@@ -80,6 +80,7 @@
             this.btnEdit.TabIndex = 10;
             this.btnEdit.Text = "수정";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // txtSearch
             // 
