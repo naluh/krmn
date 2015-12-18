@@ -14,19 +14,24 @@ namespace KoreanMongolianDictionary
     public partial class Edit : Form
     {
         Form1 f1;
+        login lo;
         public Edit(Form1 f1)
         {
             InitializeComponent();
             this.f1 = f1;
+            this.lo = f1.lo;
             int a = f1.Pass;
             DataSet MongolianEdit = new DataSet();
             try
             {
-                string connstr = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
-                MySqlConnection conn = new MySqlConnection(connstr);
+                MySqlConnection conn1 = lo.getConn();
+                if (conn1 == null)
+                {
+                    return;
+                }
                 {
                     string sql = "SELECT * FROM mongolian where mn_Id = '" + a + "'";
-                    MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
+                    MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn1);
                     adpt.Fill(MongolianEdit, "mongolian");
                 }
                 foreach (DataRow r in MongolianEdit.Tables[0].Rows)
@@ -53,8 +58,11 @@ namespace KoreanMongolianDictionary
             
             try
             {
-                string connstr = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
-                MySqlConnection conn = new MySqlConnection(connstr);
+                MySqlConnection conn1 = lo.getConn();
+                if (conn1 == null)
+                {
+                    return;
+                }
 
 
 
@@ -69,17 +77,17 @@ namespace KoreanMongolianDictionary
                     this.txtMnExplainEdit.Text, this.txtMnExampleEdit.Text, this.txtMnIdEdit.Text
                     );
 
-                MySqlCommand cmdDataBase = new MySqlCommand(sql, conn);
+                MySqlCommand cmdDataBase = new MySqlCommand(sql, conn1);
                 
                 MySqlDataReader myReader;
-                conn.Open();
+                conn1.Open();
                 myReader = cmdDataBase.ExecuteReader();
                 MessageBox.Show("Data Updated");
 
                 while (myReader.Read())
                 { }
                 this.Hide();
-                conn.Close();
+                conn1.Close();
             }
             catch (Exception ex)
             {

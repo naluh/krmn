@@ -51,7 +51,9 @@ namespace KoreanMongolianDictionary
             {
                 Form1 form1 = new Form1(this);
                 form1.Show();
+                form1.txtSearchFocus();
                 this.Hide();
+
                 
             }
 

@@ -60,6 +60,12 @@
     <Compile Include="Addinformation.Designer.cs">
       <DependentUpon>Addinformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddWord1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddWord1.Designer.cs">
+      <DependentUpon>AddWord1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Add확인.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Addinformation.resx">
       <DependentUpon>Addinformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddWord1.resx">
+      <DependentUpon>AddWord1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Add확인.resx">
       <DependentUpon>Add확인.cs</DependentUpon>

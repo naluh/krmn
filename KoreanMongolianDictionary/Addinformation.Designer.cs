@@ -117,7 +117,6 @@
             // 
             this.txtMnSenseTag.Location = new System.Drawing.Point(146, 132);
             this.txtMnSenseTag.Name = "txtMnSenseTag";
-            this.txtMnSenseTag.ReadOnly = true;
             this.txtMnSenseTag.Size = new System.Drawing.Size(154, 21);
             this.txtMnSenseTag.TabIndex = 9;
             // 

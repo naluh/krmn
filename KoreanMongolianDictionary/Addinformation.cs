@@ -16,13 +16,13 @@ namespace KoreanMongolianDictionary
     {
 
         Form1 f;
+        login lo;
         public Addinformation(Form1 f)
         {
             InitializeComponent();
             this.f = f;
-           
-            string connstr = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
-            MySqlConnection conn = new MySqlConnection(connstr);
+            this.lo = f.lo;
+            MySqlConnection conn = lo.getConn();
             
             string max = "select max(mn_Id) from mongolian";
             MySqlCommand cmd = new MySqlCommand(max,conn);
@@ -42,8 +42,11 @@ namespace KoreanMongolianDictionary
             DataSet koreanview = new DataSet();
             try
             {
-                string connstr1 = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
-                MySqlConnection conn1 = new MySqlConnection(connstr1);
+                MySqlConnection conn1 = lo.getConn();
+                if (conn1 == null)
+                {
+                    return;
+                }
                 int a = f.PassKorean;
                 {
                     string sql = "SELECT * FROM uwin where KeyID = '" + a + "'";
@@ -67,6 +70,10 @@ namespace KoreanMongolianDictionary
                     {
                         txtMnPos.Text = "Тэмдэг нэр";
                     }
+                    else if (pos == "[부사]")
+                    {
+                        txtMnPos.Text = "Дайвар үг";
+                    }
                     else
                     { txtMnPos.Text = ""; }
                     
@@ -83,24 +90,27 @@ namespace KoreanMongolianDictionary
 
 
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        public void btnAdd_Click(object sender, EventArgs e)
         {
 
             try
             {
-                string connstr = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
-                MySqlConnection conn = new MySqlConnection(connstr);
+                MySqlConnection conn1 = lo.getConn();
+                if (conn1 == null)
+                {
+                    return;
+                }
                 
 
                 string sql = "insert into krmndic.mongolian(mn_ID,mn_Name,mn_SenseTag,mn_Pos,mn_Explain,mn_Example) value('" + 
                     this.txtMnId.Text + "','" + this.txtMnName.Text + "','" + this.txtMnSenseTag.Text + "','" + 
                     this.txtMnPos.Text + "','" + this.txtMnExplain.Text + "','" + this.txtMnExample.Text + "');";
                 
-                MySqlCommand cmdDataBase = new MySqlCommand(sql, conn);
+                MySqlCommand cmdDataBase = new MySqlCommand(sql, conn1);
               
                 MySqlDataReader myReader;
                
-                conn.Open();
+                conn1.Open();
                 myReader = cmdDataBase.ExecuteReader();
                 
              
@@ -110,7 +120,7 @@ namespace KoreanMongolianDictionary
 
                 while (myReader.Read())
                 { }
-                conn.Close();
+                conn1.Close();
             }
             catch (Exception ex)
             {
@@ -118,17 +128,20 @@ namespace KoreanMongolianDictionary
             }
             try
             {
-                string connstr = "Server = localhost; Database = krmndic; Uid =  root; PWd = 0126;";
-                MySqlConnection conn = new MySqlConnection(connstr);
+                MySqlConnection conn1 = lo.getConn();
+                if (conn1 == null)
+                {
+                    return;
+                }
                 int b = f.PassKorean;
 
                 
                 string sql2 = "insert into krmndic.kr_mn(kr_Id, mn_Id) value('" + b + "','" + this.txtMnId.Text + "');";
                 
-                MySqlCommand cmdDataBase1 = new MySqlCommand(sql2, conn);
+                MySqlCommand cmdDataBase1 = new MySqlCommand(sql2, conn1);
                 
                 MySqlDataReader myReader1;
-                conn.Open();
+                conn1.Open();
                 
                 myReader1 = cmdDataBase1.ExecuteReader();
 
@@ -138,12 +151,14 @@ namespace KoreanMongolianDictionary
 
                 while (myReader1.Read())
                 { }
-                conn.Close();
+                conn1.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+            f.lvKorean_SelectedIndexChanged(sender, e);
         }
 
 
